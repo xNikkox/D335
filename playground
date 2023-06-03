@@ -2,36 +2,63 @@ from datetime import datetime
 
 seasons = {
     'Spring': {
-        'start': datetime.striptime('2023-03-20', '%Y-%m-%d'),
+        'start': datetime.strptime('2023-03-20', '%Y-%m-%d'),
         'end': datetime.strptime('2023-06-20', '%Y-%m-%d')
-        },   
+    },
     'Summer': {
-        'start': datetime.striptime('2023-06-21', '%Y-%m-%d'),
+        'start': datetime.strptime('2023-06-21', '%Y-%m-%d'),
         'end': datetime.strptime('2023-09-21', '%Y-%m-%d')
-        },
+    },
     'Autumn': {
-        'start': datetime.striptime('2023-09-22', '%Y-%m-%d'),
+        'start': datetime.strptime('2023-09-22', '%Y-%m-%d'),
         'end': datetime.strptime('2023-12-20', '%Y-%m-%d')
-        },
+    },
     'Winter': {
-        'start': datetime.striptime('2023-12-21', '%Y-%m-%d'),
+        'start': datetime.strptime('2023-12-21', '%Y-%m-%d'),
         'end': datetime.strptime('2024-03-19', '%Y-%m-%d')
-        },
+    },
 }
 
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+months = {
+    1: 'January',
+    2: 'February',
+    3: 'March',
+    4: 'April',
+    5: 'May',
+    6: 'June',
+    7: 'July',
+    8: 'August',
+    9: 'September',
+    10: 'October',
+    11: 'November',
+    12: 'December'
+}
+
+user_day = input()
+parsed_date = datetime.strptime(
+    f'2023-{user_month}-{user_day}', '%Y-%b-%d').date()
 
 
-month = input()
-day = int(input())
+def validate_month(months, user_month):
+    if user_month in months:
+        return True
+    else:
+        return False
 
+    user_month = input()
+    if validate_month(months, user_month):
+        parsed_date = datetime.strptime(
+            f'2023-{user_month}-{user_day}', '%Y-%b-%d').date()
+    else:
+        print("Invalid")
 
-parsed_month = datetime.strptime(month, '%m')
-parsed_day = datetime.strptime(day, '%d')
+    matching_season = None
+    for season, date_range in seasons.items():
+        if date_range['start'].date() <= parsed_date <= date_range['end'].date():
+            matching_season = season
+            break
 
-parsed = (parsed_month, parsed_day)
-
-for parsed in seasons
-    print(seasons)
-
-
+    if matching_season:
+        print(matching_season)
+    else:
+        print("No matching season found for the given date.")

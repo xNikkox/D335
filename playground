@@ -35,8 +35,6 @@ months = {
 }
 
 user_day = input()
-parsed_date = datetime.strptime(
-    f'2023-{user_month}-{user_day}', '%Y-%b-%d').date()
 
 
 def validate_month(months, user_month):
@@ -45,18 +43,19 @@ def validate_month(months, user_month):
     else:
         return False
 
-    user_month = input()
-    if validate_month(months, user_month):
-        parsed_date = datetime.strptime(
-            f'2023-{user_month}-{user_day}', '%Y-%b-%d').date()
-    else:
-        print("Invalid")
 
-    matching_season = None
-    for season, date_range in seasons.items():
-        if date_range['start'].date() <= parsed_date <= date_range['end'].date():
-            matching_season = season
-            break
+user_month = input()
+if validate_month(months, user_month):
+    parsed_date = datetime.strptime(
+        f'2023-{user_month}-{user_day}', '%Y-%B-%d').date()
+else:
+    print("Invalid")
+
+matching_season = None
+for season, date_range in seasons.items():
+    if date_range['start'].date() <= parsed_date <= date_range['end'].date():
+        matching_season = season
+        break
 
     if matching_season:
         print(matching_season)

@@ -1,72 +1,42 @@
-input_month = input()
-input_day = int(input())
+def determine_season(month, day):
+    # Dictionary to hold each month and its maximum day.
+    days_in_month = {
+        "January": 31,
+        "February": 29,  # accounting for leap years
+        "March": 31,
+        "April": 30,
+        "May": 31,
+        "June": 30,
+        "July": 31,
+        "August": 31,
+        "September": 30,
+        "October": 31,
+        "November": 30,
+        "December": 31,
+    }
 
-months= ('January', 'February','March', 'April' , 'May' , 'June' , 'July' , 
-'August' , 'September' , "October" , "November" , "December")
+    # check if month is valid
+    if month not in days_in_month:
+        return "Invalid"
 
-if not(input_month in months):
-    print("Invalid")
+    # check if day is valid for given month
+    if day < 1 or day > days_in_month[month]:
+        return "Invalid"
 
-elif input_month == 'March':
-    if not(1<=input_day<=31):
-        print ("Invalid")
-    elif input_day<=19:
-        print("Winter")
+    # define season based on month and day
+    if (month == "March" and day >= 20) or (month == "April") or (month == "May") or (month == "June" and day <= 20):
+        return "Spring"
+    elif (month == "June" and day >= 21) or (month == "July") or (month == "August") or (month == "September" and day <= 21):
+        return "Summer"
+    elif (month == "September" and day >= 22) or (month == "October") or (month == "November") or (month == "December" and day <= 20):
+        return "Autumn"
     else:
-        print ("Spring")
-elif input_month == 'April' :
-    if not(1<=input_day<=30):
-        print("Invalid")
-    else:
-        print("Spring")
-elif input_month == 'May':
-    if not(1<=input_day<=31):
-        print("Invalid")
-    else:
-        print("Spring")
-elif input_month == 'June':
-    if not(1<=input_day<=30):
-        print("Invalid")
-    elif input_day<=20:
-        print ("Spring")
-    else:
-        print("Summer")
-elif input_month == 'July' or input_month == 'August':
-    if not(1<=input_day<=31):
-        print("Invalid")
-    else: 
-        print("Summer")
-elif input_month == 'September':
-    if not(1<=input_day<=30):
-        print("Invalid")
-    elif input_day<=21:
-        print ("Summer")
-    else:
-        print ("Autumn")
-elif input_month == "October":
-    if not(1<=input_day<=31):
-        print("Invalid")
-    else:
-        print("Autumn")
-elif input_month == "November":
-    if not(1<=input_day<=30):
-        print("Invalid")
-    else:
-        print ("Autumn")
-elif input_month == "December":
-    if not(1<=input_day<=31):
-        print("Invalid")
-    elif input_day <=20:
-        print ("Autumn")
-    else:
-        print ("Winter")
-elif input_month == 'January':
-    if not(1<=input_day<=31):
-        print("Invalid")
-    else:
-        print("Winter")
-elif input_month == "February":
-    if not(1<=input_day<=29):
-        print("Invalid")
-    else:
-        print ("Winter")
+        return "Winter"
+
+
+# input from user
+month = input()
+day = int(input())
+
+# determine and print season
+print(determine_season(month, day))

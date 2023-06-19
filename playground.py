@@ -1,6 +1,6 @@
 import re
 
-password = input("Enter password: ")
+password = input()
 
 t_char = {
     "i": "1",
@@ -11,18 +11,22 @@ t_char = {
 }
 
 # Function to parse a string and replace characters based on a dictionary
+
+
 def parse_string(string, target_char):
     new_string = string
     for key, value in target_char.items():
-        #Create a regex pattern for the current key, ignoring case sensitivity 
+        # Create a regex pattern for the current key, ignoring case sensitivity
         pattern = re.compile(re.escape(key), re.IGNORECASE)
-        #Substitue occurrences of the key with its corresponding value in the string
+        # Substitue occurrences of the key with its corresponding value in the string
         new_string = pattern.sub(value, new_string)
-    return new_string
+        plus_string = new_string + "!"
+    return plus_string
 
-#Parse the password using the target character dictionary 
+
+# Parse the password using the target character dictionary
 parsed_password = parse_string(password, t_char)
-print("Parsed pasword:", parsed_password)
+print(parsed_password)
 
 word = input()
 parsed_word = parse_string(word, t_char)

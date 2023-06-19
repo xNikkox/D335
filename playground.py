@@ -1,26 +1,28 @@
-word = input()
-password = ''
+import re
 
-#character key and value dictionary 
+password = input("Enter password: ")
+
 t_char = {
-    "i": 1,
+    "i": "1",
     "a": "@",
     "m": "M",
-    "B": 8,
+    "B": "8",
     "s": "$"
-    }
+}
 
-
-
-#function to find and replace character
+# Function to parse a string and replace characters based on a dictionary
 def parse_string(string, target_char):
-    password = []
-    string_list = list(target_char) 
-    for i in range(len(string_list)):
-        if string_list[i] == t_char.keys[i]:
-            string_list[i] = t_char.values[i]
-            #convert the list back to a string
-            password = "".join(string_list)
-            print(password) 
+    new_string = string
+    for key, value in target_char.items():
+        #Create a regex pattern for the current key, ignoring case sensitivity 
+        pattern = re.compile(re.escape(key), re.IGNORECASE)
+        #Substitue occurrences of the key with its corresponding value in the string
+        new_string = pattern.sub(value, new_string)
+    return new_string
 
-parse_string(word, password)
+#Parse the password using the target character dictionary 
+parsed_password = parse_string(password, t_char)
+print("Parsed pasword:", parsed_password)
+
+word = input()
+parsed_word = parse_string(word, t_char)
